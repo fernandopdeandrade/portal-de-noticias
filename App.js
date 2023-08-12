@@ -1,20 +1,37 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import HomeScreen from './src/screens/HomeScreen';
+import NoticiasScreen from './src/screens/NoticiasScreen';
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+function App() {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+    <StatusBar style='light' backgroundColor='#3b5999' />
+    <NavigationContainer>
+      <Stack.Navigator>
+          <Stack.Screen name="Home" >
+            {props => <HomeScreen {...props} setLoading={setLoading} loading={loading} />}
+          </Stack.Screen>
+          <Stack.Screen name="Notícias" >
+            {props => <NoticiasScreen {...props} setLoading={setLoading} loading={loading} />}
+          </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

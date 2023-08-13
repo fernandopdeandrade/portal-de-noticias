@@ -5,7 +5,7 @@ import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'reac
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { auth } from '../models/firebase';
-import styles from '../styles/HomeCss';
+import styles from '../styles/LoginCss';
 import { alertInputsNotEmpty, alertInvalidEmail, alertUserNotFound, alertWrongPassword } from '../utils/alerts';
 
 const Login = (props) => {

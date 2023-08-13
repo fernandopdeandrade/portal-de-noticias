@@ -3,7 +3,7 @@ import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity,
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
-import getInfoData from '../models/firebase';
+import getInfoDataController from '../controllers/firebase.controller';
 
 const HomeScreen = (props) => {
   const { navigation } = props;
@@ -15,7 +15,7 @@ const HomeScreen = (props) => {
 
   useEffect(() => {
       (async () => {
-      const response = await getInfoData();
+      const response = await getInfoDataController();
         setNoticias(response);
         setLimitItems(response.slice(0, 3));
     })(); 

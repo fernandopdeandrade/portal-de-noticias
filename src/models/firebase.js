@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { collection, getDocs, getFirestore } from 'firebase/firestore/lite';
+import { getFirestore } from 'firebase/firestore/lite';
 // Siga este padrão para importar outros serviços do Firebase
 // import { } from 'firebase/<service>';
 
@@ -14,14 +14,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const dbModel = getFirestore(app);
 
-// Obtenha uma lista de noticias do seu banco de dados
-const getInfoData = async () => {
-	const noticiasCollection = collection(db, 'noticias');
-	const noticiaSnapshot = await getDocs(noticiasCollection);
-	const noticiaList = noticiaSnapshot.docs.map(doc => doc.data());
-	return noticiaList;
-};
-
-export default getInfoData;
+export { dbModel };

@@ -14,7 +14,7 @@ const Header = (props) => {
         style={{ top: 0, left: 0, right: 0, position: 'absolute', height: '100%' }} />
       <View style={styles.viewLogoName}>
         <Image style={styles.imageLogo} source={require('../images/news.jpg')} />
-        <Text style={styles.AppName}>PupyNEWS</Text>
+        <Text style={styles.AppName}>NEWS</Text>
       </View>
       <View style={styles.viewImageAvatar}>
         <ImageHeader userName={userName} />

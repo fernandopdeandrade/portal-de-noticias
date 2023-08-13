@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 5,
-    marginLeft: 6,
     marginTop: -5,
   },  
   AppName: {
@@ -39,6 +38,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     marginBottom: 5,
+    marginLeft: 5,
   },
   viewImageAvatar: {
     alignItems: 'center',

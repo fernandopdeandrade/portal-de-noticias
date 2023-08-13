@@ -1,37 +1,28 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
-import { Alert, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { auth } from '../models/firebase';
 import styles from '../styles/HomeCss';
+import { alertInputsNotEmpty, alertInvalidEmail, alertUserNotFound, alertWrongPassword } from '../utils/alerts';
 
 const Login = (props) => {
   const { navigation } = props;
 
   const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-
+  const [userEmail, setUserEmail] = useState(String || null);
+  const [userPassword, setUserPassword] = useState(String || null);
 
   const checkValueInfoUser = async (valueName, valueEmail, valuePassword) => {
     if (valueName === '' || valueEmail === '' || valuePassword === '') {
-      Alert.alert(
-        'Atenção',
-        'Digite seu nome, email e senha corretos para continuar, você também pode adicionar uma imagem de avatar!',
-        [
-          {
-            text: 'Ok',
-            onPress: () => console.log('Ok Pressed'),
-            style: 'cancel'
-          }
-        ]
-      )
+      alertInputsNotEmpty();
     } else {
+      authUser();
       await saveNameInStorage(valueName);
-      (() => navigation.navigate('Home'))();
     }
-  }
+  };
 
   const saveNameInStorage = async (valueName) => {
     try {
@@ -39,7 +30,26 @@ const Login = (props) => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+
+  const authUser = async () => {
+    await auth.signInWithEmailAndPassword(userEmail, userPassword).then((userCredential) => {
+      const { user: { email } } = userCredential;
+      confirmLogin(email);
+    }).catch((error) => {
+        alertInvalidEmail(error);
+        alertUserNotFound(error);
+        alertWrongPassword(error);
+    });
+  };
+
+  const confirmLogin = async (email) => {
+    if (email !== userEmail) {
+      return;
+    } else {
+      navigation.navigate('Home', { userName: userName });
+    }
+  };
 
   return (
           <ScrollView>
@@ -67,7 +77,7 @@ const Login = (props) => {
                 onChangeText={(userPassword) => setUserPassword(userPassword)}
                 />
                 <TouchableOpacity
-                  onPress={() => { checkValueInfoUser(userName, userEmail) }}
+                  onPress={() => { checkValueInfoUser(userName, userEmail, userPassword) }}
                   style={{ alignItems: 'center', justifyContent: 'center', width: '90%', borderRadius: 3 }}
                 > 
                   <LinearGradient

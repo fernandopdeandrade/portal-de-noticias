@@ -3,10 +3,10 @@ import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity,
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
-import getInfoDataController from '../controllers/firebase.controller';
+import { getInfoDataController } from '../controllers/firebase.controller';
 
 const HomeScreen = (props) => {
-  const { navigation } = props;
+  const { navigation, route } = props;
 
   const [loading, setLoading] = useState(false);
   const [noticias, setNoticias] = useState([]);
@@ -31,7 +31,7 @@ const HomeScreen = (props) => {
       {loading 
       ? (<Loading />)
         : (<ScrollView>
-            <Header />          
+          <Header userName={ route.params.userName } />          
            <View style={{ flex: 1 }}>
             <View style={{ flex: 0.3 }}>
             <ScrollView horizontal contentContainerStyle={{ height: 250, width: '300%' }} style={{ flex: 1 }}>

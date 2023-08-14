@@ -47,7 +47,8 @@ const HomeScreen = (props) => {
                   >
                     <TouchableOpacity
                       onPress={() =>
-                      navigation.navigate('Notícias', { titulo: item.title, conteudo: item.body, imagem: item.imagem, data: item.data })}
+                      navigation.navigate('Notícias',
+                        { titulo: item.title, conteudo: item.body, imagem: item.imagem, data: item.data, userName: route.params.userName })}
                       style={{ flex: 1 }}
                     >
                       <View style={{ position: 'absolute', left: 0, top: 0, width: '300%', height: '100%', backgroundColor: 'rgba(0,0,0,0.3)' }}>
@@ -71,7 +72,8 @@ const HomeScreen = (props) => {
                   key={index}
                   style={{marginBottom: 20}}
                   onPress={() =>
-                    navigation.navigate('Notícias', { titulo: item.title, conteudo: item.body, imagem: item.imagem, data: item.data })
+                    navigation.navigate('Notícias',
+                      { titulo: item.title, conteudo: item.body, imagem: item.imagem, data: item.data, userName: route.params.userName })
                   }
                 >
                   <View style={{ marginTop: 10, flexDirection: 'row' }}>
